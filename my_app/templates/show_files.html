@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block body %}
+	<h2> Show Templates </h2>
+
+		<ul>
+			{% for filename in files %}
+				<li> <a href="javascript:void(0);" onclick="showFile('{{filename}}')"> {{filename}} </a></li>
+			{% endfor %}
+		</ul>
+
+	{% with msgs = get_flashed_messages() %}
+		{% if msgs %}
+			Results:
+			<pre>
+				{% for msg in msgs %}
+{{msg}}
+				{% endfor %}
+			</pre>
+		{% endif %}
+	{% endwith %}
+
+	<script type="text/javascript">
+		function showFile(filename){
+			$('form').attr('expression', filename);
+			$('form').attr('method', 'post');
+			$('form').attr('action', 'submit');
+		}
+	</script>
+{% endblock %}
+{% block nav %}
+<li> <a href="{{url_for('index')}}">back</a></li>
+{% endblock %}
